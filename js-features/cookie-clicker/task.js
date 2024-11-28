@@ -9,7 +9,7 @@ image.addEventListener('click', () => {
   if (cookieClick) {
    image.style.width = '210px'
    image.style.height = '140px'
-  };
+  }
   else {
     image.style.width = '200px'
     image.style.height = '130px'
