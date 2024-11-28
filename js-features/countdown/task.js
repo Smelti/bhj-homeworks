@@ -1,4 +1,4 @@
-let time = 30;
+let time = 59;
   const timerElement = document.getElementById("timer")
 
    function updateTimer(){
