@@ -8,7 +8,8 @@ tabGroups.forEach(group => {
       tabs.forEach(tab => tab.classList.remove('tab_active'))
       
       content.forEach(content => content.classList.remove('tab__content_active'))
-      
+
+      tab.classList.add('tab_active')
       content[index].classList.add('tab__content_active')
     })
   })  
