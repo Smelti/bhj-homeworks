@@ -1,40 +1,32 @@
-const prompt = document.querySelectorAll('.has-tooltip');
-let activeTooltip = null;
+document.addEventListener('DOMContentLoaded', () => {
+  const tooltip = document.createElement('div');
+  tooltip.className = 'tooltip';
+  document.body.appendChild(tooltip);
+    
+  const prompt = document.querySelectorAll('.has-tooltip');
 
-prompt.forEach(tooltip => {
-    tooltip.addEventListener('click', event => {
-        event.preventDefault();
+  prompt.forEach((element) => {
+    element.addEventListener('click', (event) => {
+      event.preventDefault();
 
-        if (activeTooltip && activeTooltip === tooltip.nextElementSibling) {
-            activeTooltip.classList.remove('tooltip_active');
-            activeTooltip = null;
-            return;
-        }
+      const rect = element.getBoundingClientRect();
+      const text = element.getAttribute('title');
 
-        if (activeTooltip) {
-            activeTooltip.classList.remove('tooltip_active');
-        }
+      if (tooltip.classList.contains('tooltip_active') && tooltip.innerText === text) {
+        tooltip.classList.remove('tooltip_active');
+        return;
+      }
 
-        let tooltipBox = tooltip.nextElementSibling;
-        if (!tooltipBox || !tooltipBox.classList.contains('tooltip')) {
-            tooltipBox = document.createElement('div');
-            tooltipBox.className = 'tooltip';
-            tooltipBox.textContent = tooltip.getAttribute('title');
-            document.body.appendChild(tooltipBox);
-        }
-
-        const rect = tooltip.getBoundingClientRect();
-        tooltipBox.style.left = `${rect.left}px`;
-        tooltipBox.style.top = `${rect.bottom}px`;
-
-        tooltipBox.classList.add('tooltip_active');
-        activeTooltip = tooltipBox;
+      tooltip.innerHTML = text;
+      tooltip.style.left = `${rect.left}px`;
+      tooltip.style.top = `${rect.bottom}px`;
+      tooltip.classList.add('tooltip_active');
     });
-});
+  });
 
-document.addEventListener('click', event => {
-    if (!event.target.classList.contains('has-tooltip') && activeTooltip) {
-        activeTooltip.classList.remove('tooltip_active');
-        activeTooltip = null;
+  document.addEventListener('click', (event) => {
+    if (!event.target.classList.contains('has-tooltip')) {
+      tooltip.classList.remove('tooltip_active');
     }
+  });
 });
